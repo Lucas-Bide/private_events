@@ -1,0 +1,14 @@
+<%= render 'session_banner', locals: { login: true, signup: false } %>
+<h1>Sign up</h1>
+
+<% if @user.errors.any? %>
+  <div>
+    <ul>
+      <% @user.errors.full_messages.each do |e| %>
+        <li><%= e %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= render 'user_form' %>

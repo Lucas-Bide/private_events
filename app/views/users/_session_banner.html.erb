@@ -1,0 +1,12 @@
+<% if session[:current_user] %>
+  <div>Current User: <%= User.find(session[:current_user]).username %> <%= link_to 'Log Out', new_user_path  %></div>
+<% else %>
+  <div>
+    <% if locals[:login] %>
+      <%= link_to 'Log In', new_login_path %>
+    <%end %>
+    <% if locals[:signup] %>
+      <%= link_to 'Sign_up', new_user_path %>
+    <% end %>    
+  </div>
+<% end %>
