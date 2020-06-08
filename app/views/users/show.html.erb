@@ -1,9 +1,22 @@
 <%= render 'session_banner' , locals: { login: true, signup: true } %>
 <h1><%= @user.username %><h1>
-<h3>Events<h3>
-<%# <% @user.creations.each do |e| %>
-  <%# <p><%= e.name + ':' + e.location + ',' + e.date %>
-<%# <% end %>
-<%# <% @user.invitations.each do |e| %>
-  <%# <p><%= e.name + ':' + e.location + ',' + e.date %>
-<%# <% end %>
+<h3>Hosted Events <%= link_to('Create Event', new_event_path) if session[:current_user] %></h3>
+<div>
+  <% if @user.creations.any? %>
+    <% @user.creations.each do |e| %>
+      <p><%= link_to e.name, event_path(e) %><%= ': ' + e.description + ' - ' + e.date %></p>
+    <% end %><br/>
+  <% else %>
+    <p>No Hosted Events</p>
+  <% end %>
+</div>
+<h3>Attended Events <%= link_to('Join Event', events_path) if session[:current_user] %></h3>
+  <div>
+  <% if @user.attended_events.any? %>
+    <% @user.attended_events.each do |e| %>
+      <p><%= link_to e.name, event_path(e) %><%= ': ' + e.description + ' - ' + e.date %></p>
+    <% end %><br/>
+  <% else %>
+    <p>No Attended Events</p>
+  <% end %>
+</div>

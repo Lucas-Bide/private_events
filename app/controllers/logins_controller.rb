@@ -16,6 +16,11 @@ class LoginsController < ApplicationController
     end
   end
 
+  def logout
+    session[:current_user] = nil
+    redirect_to '/users/new'
+  end
+
   private
 
   def not_signed_in?

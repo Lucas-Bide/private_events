@@ -1,0 +1,7 @@
+<%= render 'users/session_banner' %>
+<h1>Events</h1>
+<div>
+<% @events.each do |e| %>
+  <p><%= link_to e.name, event_path(e) %><%=  + ": " + e.description + " - " + e.date %></p>
+<% end %>
+</div>

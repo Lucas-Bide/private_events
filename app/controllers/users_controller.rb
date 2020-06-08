@@ -22,6 +22,6 @@ class UsersController < ApplicationController
   private
   
   def already_signed_in?
-    session[:current_user] = nil
+    redirect_to User.find(session[:current_user]) if session[:current_user]
   end
 end
