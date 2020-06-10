@@ -9,6 +9,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      session[:current_user] = @user.id
       redirect_to @user
     else
       render 'new'
@@ -17,6 +18,17 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+    p "DROP IDDDDDDDDDDDDDDD: #{params[:drop_id]}"
+    if params[:join_id]
+      @user.attended_events << Event.find(params[:join_id])
+    else
+      @user.attended_events.delete(params[:drop_id])
+    end
+    redirect_to @user
   end
 
   private

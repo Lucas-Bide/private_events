@@ -1,7 +1,12 @@
 <%= render 'users/session_banner' %>
 <h1>Events</h1>
 <div>
-<% @events.each do |e| %>
-  <p><%= link_to e.name, event_path(e) %><%=  + ": " + e.description + " - " + e.date %></p>
+<h4>Upcoming</h4>
+<% @events.upcoming.each do |e| %>
+  <p><%= link_to e.name, event_path(e) %><%=  + ": " + e.description + " - " + Date.parse(e.date).strftime('%a %d %b %Y') %></p>
+<% end %>
+<h4>Past</h4>
+<% @events.past.each do |e| %>
+  <p><%= link_to e.name, event_path(e) %><%=  + ": " + e.description + " - " + Date.parse(e.date).strftime('%a %d %b %Y') %></p>
 <% end %>
 </div>

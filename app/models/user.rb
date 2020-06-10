@@ -4,4 +4,6 @@ class User < ApplicationRecord
   has_many :attended_events, through: :events_users
 
   validates :username, uniqueness: true, presence: true
+
+#  scope :upcoming, -> { where(date)}
 end

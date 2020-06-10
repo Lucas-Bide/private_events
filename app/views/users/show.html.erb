@@ -4,7 +4,7 @@
 <div>
   <% if @user.creations.any? %>
     <% @user.creations.each do |e| %>
-      <p><%= link_to e.name, event_path(e) %><%= ': ' + e.description + ' - ' + e.date %></p>
+      <p><%= link_to e.name, event_path(e) %><%= ': ' + e.description + ' - ' + Date.parse(e.date).strftime('%a %d %b %Y') %></p>
     <% end %><br/>
   <% else %>
     <p>No Hosted Events</p>
@@ -13,8 +13,13 @@
 <h3>Attended Events <%= link_to('Join Event', events_path) if session[:current_user] %></h3>
   <div>
   <% if @user.attended_events.any? %>
-    <% @user.attended_events.each do |e| %>
-      <p><%= link_to e.name, event_path(e) %><%= ': ' + e.description + ' - ' + e.date %></p>
+    <h4>Upcoming</h4>
+    <% @user.attended_events.upcoming.each do |e| %>
+      <p><%= link_to e.name, event_path(e) %><%= ': ' + e.description + ' - ' + Date.parse(e.date).strftime('%a %d %b %Y') %></p>
+    <% end %><br/>
+    <h4>Past</h4>
+    <% @user.attended_events.past.each do |e| %>
+      <p><%= link_to e.name, event_path(e) %><%= ': ' + e.description + ' - ' + Date.parse(e.date).strftime('%a %d %b %Y') %></p>
     <% end %><br/>
   <% else %>
     <p>No Attended Events</p>

@@ -2,6 +2,15 @@
 <h1>Event: <%= @event.name %></h1>
 <p>By <%= link_to @event.creator.username, user_path(@event.creator) %></p>
 <h3><%= @event.description %></h3>
-<h5>Date: <%= @event.date %></h5>
+<h5>Date: <%= Date.parse(@event.date).strftime('%a %d %b %Y') %></h5>
+
+<% if session[:current_user] && session[:current_user] != @event.creator_id %>
+  <% if !User.find(session[:current_user]).attended_event_ids.include?(@event.id) %>
+    <p><%= link_to 'Join Event', user_path( id: session[:current_user], join_id: @event.id), method: :put %></p>
+  <% else %>
+    <p><%= link_to 'Drop Event', user_path(id: session[:current_user], drop_id: @event.id), method: :put %></p>
+  <% end %>
+<% end %>
+
 <p><%= link_to 'See ' + @event.creator.username, user_path(@event.creator) %></p>
 <p><%= link_to 'See All Events', events_path %></p>

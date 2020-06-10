@@ -12,10 +12,15 @@ class EventsController < ApplicationController
 
   def create
     @event = User.find(session[:current_user]).creations.build(event_params)
-        if @event.save
+    @event.date_valid?
+    if @event.save
+      year = @event.date[6...9]
+      month = @event.date[0...2]
+      day = @event.date[3...5]
+      @event.date = year + '-' + month + '-' + day
+      @event.save
       redirect_to @event
     else
-      p @event.date
       render 'new'
     end
   end

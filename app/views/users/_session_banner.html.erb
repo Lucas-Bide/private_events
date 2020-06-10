@@ -1,5 +1,5 @@
 <% if session[:current_user] %>
-  <div>Current User: <%= User.find(session[:current_user]).username %> <%= link_to 'Log Out', logins_logout_path  %></div>
+  <div>Current User: <%= link_to User.find(session[:current_user]).username, user_path(session[:current_user]) %> <%= link_to 'Log Out', logins_logout_path  %></div>
 <% else %>
   <div>
     <% if locals[:login] %>
